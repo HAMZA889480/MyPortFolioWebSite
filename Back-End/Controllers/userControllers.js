@@ -134,7 +134,10 @@ exports.searchUser = async (req, res, next) => {
   let user;
 
   try {
-    user = await Users.findOne({ email: req.body.email });
+    user = await Users.findOne({ email: req.body.email }).populate({
+      path: "experience",
+      select: "-_id -__v",
+    });
   } catch (err) {
     return next(new appError(err.message, 500));
   }

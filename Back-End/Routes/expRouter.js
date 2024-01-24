@@ -5,6 +5,10 @@ const authHandler = require("../Controllers/authHandler");
 //creating router using express
 const router = express.Router();
 
-router.route("/").post(authHandler.verifyUserLogedIn, expHandler.addExprience);
+//Routers for normal users (current user)
+router
+  .route("/")
+  .post(authHandler.verifyUserLogedIn, expHandler.addExprience)
+  .get(authHandler.verifyUserLogedIn, expHandler.getExperience);
 
 module.exports = router;
