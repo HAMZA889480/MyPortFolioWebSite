@@ -106,8 +106,30 @@ exports.deleteMe = async (req, res, next) => {
   res.status(204).json({ message: "Success", details: null });
 };
 
-//search a  logined user using email
+//search a  logined user using email(by admin)
 exports.searchUser = async (req, res, next) => {
+  //1) Check if enail is present
+  if (!req.body.email) {
+    return next(new appError("Provide the email of the user to Search"));
+  }
+  //2) Check the email in DB
+  let user;
+
+  try {
+    user = await Users.findOne({ email: req.body.email });
+  } catch (err) {
+    return next(new appError(err.message, 500));
+  }
+
+  if (!user) {
+    return next(new appError("Email does not exist", 404));
+  }
+  //3) return the user
+  res.status(200).json({ message: "Found", user });
+};
+
+//get data of currently logedIn user
+exports.getMe = async (req, res, next) => {
   // 1)- User is logined
   //logined Users are save in req.user
   let findUser;

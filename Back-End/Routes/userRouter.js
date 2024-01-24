@@ -6,12 +6,7 @@ const router = express.Router();
 
 //creating a router for auth permission
 router
-  .get(
-    "/",
-    authHandler.verifyUserLogedIn,
-    authHandler.restrictTo("admin"),
-    userHandlers.getAllUsers
-  )
+
   .post(
     "/signup",
     authHandler.verifyUserLogedIn,
@@ -26,19 +21,26 @@ router
     "/updatePassword",
     authHandler.verifyUserLogedIn,
     authHandler.updatePassword
-  )
-  .patch("/updateMe", authHandler.verifyUserLogedIn, userHandlers.updateMe)
-  .delete("/deleteMe", authHandler.verifyUserLogedIn, userHandlers.deleteMe);
+  );
 
+//user Routes (allowed to admin user)
 router
   .route("/")
-  .get(authHandler.verifyUserLogedIn, userHandlers.getAllUsers)
-  .post(authHandler.verifyUserLogedIn, userHandlers.searchUser);
+  .get(
+    authHandler.verifyUserLogedIn,
+    authHandler.restrictTo("admin"),
+    userHandlers.getAllUsers
+  ) //get all users (by admin)
+  .post(
+    authHandler.verifyUserLogedIn,
+    authHandler.restrictTo("admin"),
+    userHandlers.searchUser
+  ); //find a user (by admin)
 
-// router
-//   .route("/:id")
-//   .get(userHandlers.findUser)
-
-//   .delete(userHandlers.deleteUser);
+//user Routers (allowed to normal user)
+router
+  .patch("/updateMe", authHandler.verifyUserLogedIn, userHandlers.updateMe)
+  .delete("/deleteMe", authHandler.verifyUserLogedIn, userHandlers.deleteMe)
+  .get("/getMe", authHandler.verifyUserLogedIn, userHandlers.getMe);
 
 module.exports = router;
