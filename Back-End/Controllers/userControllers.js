@@ -83,7 +83,7 @@ exports.updateMe = async (req, res, next) => {
   res.status(200).json({ message: "Modified", updatedUser });
 };
 
-//delete Current user
+//delete Current user (set current user to inactive state)
 exports.deleteMe = async (req, res, next) => {
   //1)- Check that the password is given(for the cofirmation)
   if (!req.body.password) {
@@ -104,6 +104,24 @@ exports.deleteMe = async (req, res, next) => {
   req.user.active = false;
   req.user.save({ validateBeforeSave: false }); //save without validation
   res.status(204).json({ message: "Success", details: null });
+};
+
+//get data of currently logedIn user
+exports.getMe = async (req, res, next) => {
+  // 1)- User is logined
+  //logined Users are save in req.user
+  let findUser;
+  try {
+    findUser = await Users.findById(req.user._id).populate("experience");
+  } catch (err) {
+    return next(new appError("Could Not search for user", 500));
+  }
+
+  if (!findUser) {
+    res.status(404).json({ message: "Fail", data: findUser });
+  }
+
+  res.status(200).json({ message: "Found", userData: findUser });
 };
 
 //search a  logined user using email(by admin)
@@ -128,30 +146,19 @@ exports.searchUser = async (req, res, next) => {
   res.status(200).json({ message: "Found", user });
 };
 
-//get data of currently logedIn user
-exports.getMe = async (req, res, next) => {
-  // 1)- User is logined
-  //logined Users are save in req.user
-  let findUser;
-  try {
-    findUser = await Users.findById(req.user._id).populate("experience");
-  } catch (err) {
-    return next(new appError("Could Not search for user", 500));
-  }
-
-  if (!findUser) {
-    res.status(404).json({ message: "Fail", data: findUser });
-  }
-
-  res.status(200).json({ message: "Found", userData: findUser });
-};
-
-//delete a user
+//delete a user using email ID (by admin)
 exports.deleteUser = async (req, res) => {
-  try {
-    await Users.deleteOne({ _id: req.params.id });
-    res.status(204).json({ message: "Success" });
-  } catch (err) {
-    res.status(404).json({ message: "Filed", details: err });
+  //1) Check if email is present
+  if (!req.body.email) {
+    return next(new appError("Provide the email of the user to Search"));
   }
+
+  //2) Check if user exist in DB. If yes, then delete it
+  try {
+    await Users.findOneAndDelete({ email: req.body.email });
+  } catch (err) {
+    return next(new appError("User not deleted", 500));
+  }
+
+  res.status(204).json({ message: "Deletd", data: null });
 };

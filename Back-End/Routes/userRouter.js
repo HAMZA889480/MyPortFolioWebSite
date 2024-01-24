@@ -35,7 +35,12 @@ router
     authHandler.verifyUserLogedIn,
     authHandler.restrictTo("admin"),
     userHandlers.searchUser
-  ); //find a user (by admin)
+  ) //find a user (by admin)
+  .delete(
+    authHandler.verifyUserLogedIn,
+    authHandler.restrictTo("admin"),
+    userHandlers.deleteUser
+  );
 
 //user Routers (allowed to normal user)
 router
