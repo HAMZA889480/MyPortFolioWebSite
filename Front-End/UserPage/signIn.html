@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="signIn.css" />
+    <link rel="stylesheet" href="../Main Page/style.css" />
+    <script
+      src="https://kit.fontawesome.com/f064934a3a.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In</title>
+  </head>
+  <body>
+    <!----------------------         Nav Bar       --------------------------->
+
+    <header>
+      <a href="#" class="protfolio">Brand</a>
+      <div class="menu">
+        <div class="btn">
+          <i class="fas fa-times close-btn"></i>
+        </div>
+        <a href="#">Home</a>
+       
+        <a href="#contact">Contact</a>
+        
+        <a href="#">Sign In</a>
+        <a href="../UserPage/SignUp.html">SignUp</a>
+      </div>
+      <div class="btn">
+        <i class="fas fa-bars menu-btn"></i>
+      </div>
+    </header>
+
+    <!-- <div class="box">
+    <h2>Sign In</h2>
+    <p>Sign In to Continue</p>
+    <form action="#" id="signIn-form">
+      <div class="inputBox">
+        <input type="email"  id="email" required value="" onkeyup="this.setAttribute('value',
+        this.value)">
+        <label for="email">E-mail address</label>
+      </div>
+      <div class="inputBox">
+        <input type="password" id="password" required value="">
+        <label for="password">Password</label>
+      </div>
+      <div class="forget">
+        <button>Forget your password?</button>
+      </div>
+      <input type="submit" name="sign-in">
+    </form>
+  </div> -->
+
+    <form id="main-container">
+      <div id="box">
+        <div class="signIn-cont">
+          <h2>Sign In</h2>
+
+          <div class="line"></div>
+          <p>SignIn to Continue</p>
+        </div>
+
+
+        <div class="select-box">
+          <label for="role">Select Role</label>
+          <select name="role" id="role" class="select-input">
+            <option value="default" selected>Select Your Role</option>
+
+            <option value="user">Normal User</option>
+
+            <option value="admin">Admin User</option>
+          </select>
+        </div>
+
+        <div class="email-container">
+          <p>Email</p>
+          <input type="email"  id="email" required value="">
+        </div>
+
+        <div class=" password-container">
+          <p>Password</p>
+          <input type="password"  id="password" required value="">
+        </div>
+
+        <div class="forgetPassword">
+          <a href="#"> Forget Password?</a>
+        </div>
+
+        <button  class="sign-in-btn" type="button" id="sign-in-btn"> Sign In</button>
+      </div>
+      </div>
+
+      
+    </form>
+
+    <!--------------------Footer          ---------------------------------------->
+    <footer class="footer" id="contact">
+      <i id="icon" class="fa-solid fa-chevron-up"></i>
+      <div class="socialIcons">
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-github"></i>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="template">
+        <i class="fa-regular fa-copyright"></i>
+        <h4>2021</h4>
+        <p>This template is designed by Ameer Hamza</p>
+      </div>
+      <div class="template-buttons">
+        <button class="fork">
+          <i class="fa-solid fa-code-fork"></i>
+
+          <h5>20,2514</h5>
+        </button>
+
+        <button class="fork">
+          <i class="fa-regular fa-star"></i>
+
+          <h5>35,2514</h5>
+        </button>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="signIn.js"></script>
+  </body>
+</html>

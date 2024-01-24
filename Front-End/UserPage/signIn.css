@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+  }
+html{
+  scroll-behavior: smooth;
+}
+  #main-container{
+    position: relative;
+    min-height: 150vh;
+    width: 100%;
+    margin-top: 15vh;
+  }
+
+  #box{
+    box-shadow: 0 5px 30px rgba(0, 0,0, 0.30);
+    position:absolute;
+    
+    margin-top: 60vh;
+    margin-left: 50%;
+    transform: translate(-50%,-50%);
+    width: 40rem;
+    padding: 0.4rem;
+    box-sizing: border-box;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    min-height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  #box h2{
+    margin-top: 8vh;
+    text-align: center;
+    font-size: 3rem;
+    font-style: italic;
+    color: #039be5;
+  }
+
+  #box .line{
+    border-top: 0.2rem solid #039be5;
+    margin: 3vh auto;
+    width: 50%;
+  }
+
+
+  #box p{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+
+  #box .email-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 8vh;
+    min-height: 5vh;
+    justify-content: center;
+    
+  }
+
+  .signIn-cont p{
+    position: relative;
+    margin-left: 25%;
+  }
+
+
+ p{
+    padding-right: 10vw;
+    font-size: 1.5rem;
+    font-weight: normal;
+    font-style: italic;
+    margin-top: 5px;
+
+}
+#box .email-container input{
+
+    width: 55%;
+    
+    padding: 0.625rem 10px;
+    font-size: 1rem;
+    letter-spacing: 0.062rem;
+    margin-bottom: 1.875rem;
+    border: 1px solid #ccc;
+    background: transparent;
+    border-radius: 8px;
+}
+
+#box .password-container{
+ 
+    display: flex;
+    
+    flex-direction: row;
+    margin-top: 5vh;
+    min-height: 5vh;
+    justify-content: center;
+}
+
+
+.password-container p{
+  margin-left: 5%;
+}
+
+#box .password-container input{
+
+  width: 80%;
+  
+  padding: 0.625rem 10px;
+  font-size: 1rem;
+  letter-spacing: 0.062rem;
+  margin-bottom: 1.875rem;
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 8px;
+  margin-right: 35px;
+}
+
+
+.forgetPassword a{
+  margin-left: 70%;
+  font-size: 1.2rem;
+  font-style: italic;
+
+}
+
+.sign-in-btn{
+  /* position: relative;
+    
+    left: 40%;
+    top: 40px;
+    padding: 10px 55px;
+    background-color: #039be5;
+    color: white;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer; */
+
+    top: 1.1vh;
+    position: relative;
+    width: 50%;
+    left: 25%;
+    margin-top: 40px;
+    padding: 8px 20px;
+    background-color: #039be5;
+    color: white;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+
+.select-box{
+  width: 100%;
+  margin-top: 15vh;
+
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.select-input{
+  font-size: 1rem;
+  text-transform: uppercase;
+  width: 55%;
+  border: 1 px solid #dce4e4;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-left: 110px;
+}
+
+.select-input:focus{
+  outline: none;
+}
+
+.select-input option{
+  padding-top: 10px;
+
+}
+
+.select-box label{
+  margin-left: 40px;
+font-size: 1.1rem;
+  margin-top: 15px;
+  font-style: italic;
+
+}

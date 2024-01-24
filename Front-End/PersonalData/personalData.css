@@ -1,0 +1,274 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 200vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  color: #1a73e8;
+  left: 10%;
+  margin-top: 60vh;
+}
+
+.cls-my-pic {
+  position: absolute;
+  margin-top: 50vh;
+  margin-left: 10%;
+}
+
+.cls-my-pic-btn {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 30px;
+  background-color: #039be5;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.box {
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  margin-top: 120vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60rem;
+  min-height: 90vh;
+  padding: 0.4rem;
+  box-sizing: border-box;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+}
+.box .personal-container {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.box .personal-container .about-me {
+  height: 15vh;
+  position: relative;
+  margin-top: 55vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.box .personal-container .about-me p {
+  margin-top: 4vh;
+}
+
+
+.notEdit:hover{
+
+  cursor: no-drop;
+
+}
+
+.save-pic-btn #upload-pic-btn {
+  margin-top: 5vh;
+  position: relative;
+  left: 40%;
+
+  padding: 10px 60px;
+  background-color: #039be5;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.save-pic-btn #upload-pic-btn:hover {
+  color: #039be5;
+  border: 1px solid #039be5;
+  background-color: white;
+}
+
+.box .personal-container .about-me input {
+  width: 70%;
+
+  padding: 0.925rem 15px;
+  font-size: 1rem;
+  letter-spacing: 0.062rem;
+
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 8px;
+}
+.box .personal-container .about-me input:focus {
+  outline: none;
+  border: 1.5px solid #039be5;
+}
+
+.box h2 {
+  margin: 0 0 -0.125rem;
+  padding: 0;
+  color: #039be5;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.box .drawline {
+  border-top: 0.2vh solid #039be5;
+  margin: 2.5vh auto;
+  width: 50%;
+}
+
+.box .persoanl-details {
+  display: inline-block;
+}
+.persoanl-details .image {
+  position: absolute;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+  border: 1px dash #039be5;
+  left: 10px;
+  height: 37vh;
+  width: 20vw;
+  overflow: hidden;
+}
+.image-btn {
+  position: absolute;
+  background-color: white;
+  left: 6%;
+  top: 30%;
+  font-size: 10px;
+  padding: 2vw 3vh;
+  border: 1px dashed #423838;
+  cursor: pointer;
+}
+
+.persoanl-details .image .image-btn i {
+  font-size: 60px;
+}
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.persoanl-details .labels-div {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  left: 50%;
+  min-height: 40vh;
+  min-width: 5vw;
+}
+
+.persoanl-details .input-div {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  right: 15px;
+  min-height: 40vh;
+  min-width: 20vw;
+}
+
+p {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.box .input-div input {
+  width: 95%;
+
+  padding: 0.925rem 15px;
+  font-size: 1rem;
+  letter-spacing: 0.062rem;
+
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.form-submit {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.form-submit .submit-btn {
+  margin-top: 35vh;
+  padding: 10px 150px;
+  background-color: #039be5;
+  color: white;
+  font-size: 1.3rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-submit .submit-btn:hover {
+  background-color: white;
+  color: #039be5;
+  border: 1px solid #039be5;
+}
+
+.social-section {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: sp; */
+}
+
+.social-section .social-inputs {
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.social-section .social-inputs p {
+  margin-top: 10px;
+}
+
+.social-section .social-inputs input {
+  width: 50%;
+  padding: 0.825rem 10px;
+  font-size: 1rem;
+  letter-spacing: 0.062rem;
+
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 8px;
+}
+
+.add-social-btn {
+  position: relative;
+  margin-top: 10vh;
+  width: 25%;
+  padding: 8px 24px;
+  background-color: #039be5;
+  color: white;
+  border: none;
+  font-size: 1.4rem;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-left: 60%;
+  transition: 0.2s;
+}
+
+.add-social-btn:hover {
+  border: 1px solid #039be5;
+  background-color: white;
+  color: #039be5;
+}
+
+.social-section .add-so-btn {
+  margin-top: 10vh;
+  height: 15vh;
+  width: 20vh;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../Main Page/style.css" />
+    <link rel="stylesheet" href="personalData.css" />
+    <script
+      src="https://kit.fontawesome.com/f064934a3a.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registeration</title>
+  </head>
+  <body>
+    <!--------------------Nav Bar       -----------------------------  ----------------------->
+
+    <header>
+      <a href="#" class="protfolio">Brand</a>
+      <div class="menu">
+        <div class="btn">
+          <i class="fas fa-times close-btn"></i>
+        </div>
+        <a href="../Main Page/index.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <a href="#">Footer</a>
+        <a href="../UserPage/SignIn.html">Sign In</a>
+        <a href="../UserPage/SignUp.html">SignUp</a>
+      </div>
+      <div class="btn">
+        <i class="fas fa-bars menu-btn"></i>
+      </div>
+    </header>
+
+    <!-------------------Form Container----------------------->
+    <form action="#" id="box" class="box">
+      <div class="personal-container">
+        <h2>Personal Details</h2>
+        <div class="drawline"></div>
+        <div class="persoanl-details">
+          <div class="image">
+            <input type="file" id="file" accept="image/*" hidden />
+
+            <button
+              class="image-btn"
+              type="button"
+              onclick="replaceWithImage()"
+            >
+              <i class="fa-solid fa-cloud-arrow-up"
+                ><span> <p>Click to upload the image</p></span></i
+              >
+            </button>
+          </div>
+
+          <div class="labels-div">
+            <p>Full Name</p>
+            <p>Email Address</p>
+            <p>Description</p>
+          </div>
+
+          <div class="input-div">
+            <input class="notEdit" type="text" id="fullName" required value="" />
+            <!-- <label for="fullName">Full Name</label> -->
+
+            <input class="notEdit" type="email" id="email" required value="" />
+
+            <input class="notEdit" type="text" id="description" required value="" />
+          </div>
+        </div>
+
+        <div class="cls-my-pic">
+          <button class="cls-my-pic-btn" type="button" id="cls-myPic-btn">
+            Clear
+          </button>
+        </div>
+        <div class="about-me">
+          <p id="about">Tell us about your self</p>
+          <input type="text" id="about-input" required value="" />
+        </div>
+      </div>
+
+
+      <!----------------------------Social Media Section          ----------------------->
+      
+      <div id="exp-main">
+        <div class="social-section">
+          <h2 style="margin-top: 20vh">Add Your Social Accounts</h2>
+          <div class="drawline"></div>
+
+          <div class="social-inputs">
+            <p style="padding-left: 3px">Your Linked In</p>
+            <input type="text" required id="linked-In-input" />
+          </div>
+          <div class="social-inputs">
+            <p>Your GitHub Link</p>
+            <input type="text" required id="github-input" />
+          </div>
+          <div class="social-inputs">
+            <p>Your Whatsapp</p>
+            <input type="number" required id="wahstapp-input" />
+            <!-- <button class="add-social-btn">Click Me</button> -->
+          </div>
+        </div>
+
+        <div class="form-submit" id="form-btn">
+          <button class="submit-btn" type="submit" id="save-personal-details">
+            Submit
+          </button>
+        </div>
+      </div>
+
+      
+    </form>
+    <!---------------------Footer -------------------------------->
+    <footer class="footer">
+      <i id="icon" class="fa-solid fa-chevron-up"></i>
+      <div class="socialIcons">
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-github"></i>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="template">
+        <i class="fa-regular fa-copyright"></i>
+        <h4>2021</h4>
+        <p>This template is designed by Ameer Hamza</p>
+      </div>
+      <div class="template-buttons">
+        <button class="fork">
+          <i class="fa-solid fa-code-fork"></i>
+
+          <h5>20,2514</h5>
+        </button>
+
+        <button class="fork">
+          <i class="fa-regular fa-star"></i>
+
+          <h5>35,2514</h5>
+        </button>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="persoanlData.js"></script>
+  </body>
+</html>

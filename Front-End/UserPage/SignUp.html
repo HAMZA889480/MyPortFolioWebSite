@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../Main Page/style.css" />
+    <link rel="stylesheet" href="signup.css" />
+    <script
+      src="https://kit.fontawesome.com/f064934a3a.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registeration</title>
+  </head>
+  <body>
+    <!--------------------Nav Bar         ----------------------->
+
+    <header>
+      <a href="#" class="protfolio">Brand</a>
+      <div class="menu">
+        <div class="btn">
+          <i class="fas fa-times close-btn"></i>
+        </div>
+        <a href="#">Home</a>
+        
+        <a href="#contact">Contact</a>
+       
+        <a href="../UserPage/SignIn.html">Sign In</a>
+        <a href="#">SignUp</a>
+      </div>
+      <div class="btn">
+        <i class="fas fa-bars menu-btn"></i>
+      </div>
+    </header>
+
+    <!-------------------Form Container----------------------->
+    <div class="main-container">
+      <div class="sign-up">
+        <h1>New User ? Sign Up to Continue</h1>
+      </div>
+      <div class="box">
+        <h2>Sign Up</h2>
+        <div class="drawline"></div>
+
+        <p>SignUp to Register</p>
+        <form action="#" id="signup-form">
+          <div class="inputBox">
+            <input
+              type="text"
+              id="firstname"
+              required
+              value=""
+              onkeyup="this.setAttribute('value',
+            this.value)"
+            />
+            <label for="firstName">First Name</label>
+          </div>
+
+          <!-------------------------------------------------------->
+
+          <div class="inputBox">
+            <input
+              type="text"
+              id="secName"
+              name="secondName"
+              required
+              value=""
+            />
+            <label for="secondName">Second Name</label>
+          </div>
+
+          <div class="inputBox">
+            <input
+              type="email"
+              id="email"
+              required
+              value=""
+              onkeyup="this.setAttribute('value',
+              this.value)"
+            />
+            <label for="firstName">Email Address</label>
+          </div>
+
+          <div class="inputBox">
+            <input
+              type="password"
+              id="pass"
+              name="password"
+              required
+              value=""
+            />
+            <label for="password">Password</label>
+          </div>
+
+          <div class="inputBox">
+            <input
+              type="password"
+              id="confPassword"
+              required
+              value=""
+              onkeyup="this.setAttribute('value',
+              this.value)"
+            />
+            <label for="conf-password">Confirm Password</label>
+          </div>
+
+          <div class="inputBox">
+            <input type="phone" name="phone" id="phone" required value="" />
+            <label for="firstName">Phone No.</label>
+          </div>
+
+          <div class="inputBox">
+            <input
+              type="text"
+              required
+              value=""
+              id="description"
+              onkeyup="this.setAttribute('value',
+                this.value)"
+            />
+            <label for="designation">Designation</label>
+          </div>
+
+          <div class="select-box">
+            <label for="role">Select Role</label>
+            <select name="role" id="role" class="select-input">
+              <option value="default" selected>Select Your Role</option>
+
+              <option value="user">Normal User</option>
+
+              <option value="admin">Admin User</option>
+            </select>
+          </div>
+
+          <input type="submit" name="sign-in" id="submit-btn" />
+        </form>
+      </div>
+    </div>
+
+    <!---------------------Footer -------------------------------->
+    <footer class="footer" id="contact">
+      <i id="icon" class="fa-solid fa-chevron-up"></i>
+      <div class="socialIcons">
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-github"></i>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="template">
+        <i class="fa-regular fa-copyright"></i>
+        <h4>2021</h4>
+        <p>This template is designed by Ameer Hamza</p>
+      </div>
+      <div class="template-buttons">
+        <button class="fork">
+          <i class="fa-solid fa-code-fork"></i>
+
+          <h5>20,2514</h5>
+        </button>
+
+        <button class="fork">
+          <i class="fa-regular fa-star"></i>
+
+          <h5>35,2514</h5>
+        </button>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="signUp.js"></script>
+  </body>
+</html>

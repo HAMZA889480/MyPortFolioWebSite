@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/f064934a3a.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Portfolio</title>
+  </head>
+  <body>
+    <!----------------------         Nav Bar       --------------------------->
+
+    <header>
+      <a href="#" class="protfolio">Brand</a>
+      <div class="menu">
+        <div class="btn">
+          <i class="fas fa-times close-btn"></i>
+        </div>
+        <a href="../Main Page/index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#projects">Projects</a>
+        <a href="../UserPage/signIn.html">Sign In</a>
+        <a href="../UserPage/SignUp.html">SignUp</a>
+      </div>
+      <div class="btn">
+        <i class="fas fa-bars menu-btn"></i>
+      </div>
+    </header>
+
+    <!-------Mian Section ---------------------->
+
+    <section id="first-section" class="intro-section">
+      <div class="intro">
+        <div class="name">
+          <h1>
+            Hi, My name is<span class="colored-name" id="my-name">
+              Ameer Hamza</span
+            >
+            <span class="designation" id="my-role"
+              >I am a Software Engineer</span
+            >
+          </h1>
+
+          <button class="know-btn" type="button" id="know-btn">
+            Know More
+          </button>
+
+          <div class="my-social">
+            <i class="fa-brands fa-linkedin"></i>
+            <i class="fa-brands fa-github space"></i>
+            <i class="fa-brands fa-whatsapp space"></i>
+            <i class="fa-solid fa-phone space" style="font-size: 3.3rem"></i>
+          </div>
+        </div>
+        <div class="my-picture">
+          <img
+            src="/Main Page/Assests/Public/Images/Pic.jpg"
+            alt="My picture"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!--------------- About Section         ------------------------------------>
+    <section id="about-section">
+      <div class="about-section" id="about">
+        <h1 class="about">About Me</h1>
+        <div class="line"></div>
+
+        <div class="container">
+          <div class="img-cont">
+            <img
+              id="your-pic"
+              src="Assests/Public/Images/Pic.jpg"
+              alt="My Pic"
+            />
+          </div>
+
+          <div class="intro-container">
+            <p class="intro" id="intro-sec">My Name is Dummy</p>
+            <button class="button" type="button" id="resume-btn">
+              View Resume
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-------------------------      Projects Section               ------------------------------------>
+    <article class="project-section" id="project-section">
+      <h1 class="projects">Projects</h1>
+      <div class="line2"></div>
+
+      <div class="project-Search">
+        <input
+          type="text"
+          placeholder="Search Project using Title"
+          id="proj-search-bar"
+        />
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+      <div id="proj-parent">
+        <!-------Grand Parent--------->
+        <!-------------- This is the parent div   ------------------->
+
+        <div class="no-proj-div" id="no-proj-cont">
+          <h2 class="no-project" id="no-proj-text">No Project to Display</h2>
+        </div>
+      </div>
+
+      <button class="add-Project-btn" id="add-project" type="button">
+        Add Project
+      </button>
+    </article>
+    <!-------------------Experrinece Section ---------------------->
+    <section class="experience-section" id="exp-section">
+      <div class="experience-heading">
+        <h2>Your Experience</h2>
+
+        <div class="exp-line"></div>
+
+        <div class="project-Search" style="margin-top: 0.2vh">
+          <input
+            type="text"
+            placeholder="Search Experience By Role"
+            id="exp-search-bar"
+            style="width: 50%"
+          />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
+
+      <div class="card-container" id="card-cont"></div>
+
+      <div class="no-proj-div" id="no-exp-cont">
+        <h2 class="no-project" id="no-exp-text">No Experience to Display</h2>
+      </div>
+      <button class="add-exp" id="add-exp-btn" type="button">
+        Add Experience
+      </button>
+    </section>
+
+    <!-----------------   Edu cation Section      ----------             ------------------------------>
+    <section class="education-section" id="edu-section">
+      <div class="education-heading">
+        <h2>Your Education</h2>
+        <div class="exp-line"></div>
+
+        <div
+          class="card-container"
+          style="
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          "
+          id="edu-card"
+        >
+          <div
+            class="no-proj-div"
+            id="no-edu-cont"
+            style="display: block; margin-bottom: 30vh; margin-top: 10vh"
+          >
+            <h2
+              class="no-project"
+              id="no-edu-text"
+              style="
+                display: block;
+                position: relative;
+                left: 3%;
+                font-size: 2.5rem;
+                font-weight: bold;
+                font-style: italic;
+                color: #5e9ebe;
+              "
+            >
+              No Education to Display
+            </h2>
+          </div>
+        </div>
+
+        <button class="add-edu" type="button" id="add-edu-btn">
+          Add Education
+        </button>
+      </div>
+    </section>
+
+    <!--------------------------------------   Contact Section           -------------------------->
+
+    <section class="contact-section" id="contact">
+      <div class="section">
+        <h1 id="contact">Contact</h1>
+        <div class="section2">
+          <h4 id="contact-action">Have a query? Send us Email</h4>
+          <div class="contact-button">
+            <button class="button3" type="button" id="email-link">
+              Send Email
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!----------- Footer Section       ------------------------------------>
+    <footer class="footer">
+      <i id="icon" class="fa-solid fa-chevron-up"></i>
+      <div class="socialIcons">
+        <i class="fa-brands fa-twitter"></i>
+        <i class="fa-brands fa-linkedin" id="linkedIn-page"></i>
+        <i class="fa-brands fa-github" id="gitHub-page"></i>
+      </div>
+
+      <div class="line"></div>
+
+      <div class="template">
+        <i class="fa-regular fa-copyright"></i>
+        <h4>2021</h4>
+        <p>This template is designed by Ameer Hamza</p>
+      </div>
+      <div class="template-buttons">
+        <button class="fork">
+          <i class="fa-solid fa-code-fork"></i>
+
+          <h5>20,2514</h5>
+        </button>
+
+        <button class="fork">
+          <i class="fa-regular fa-star"></i>
+
+          <h5>35,2514</h5>
+        </button>
+      </div>
+    </footer>
+
+    <div id="popup">
+      <h2 id="popup-title">Title</h2>
+      <div class="errorLine"></div>
+      <div class="popUpContainer">
+        <img
+          id="popup-img"
+          src="../Main Page/Assests/Public/Images/project 1.jpg"
+          alt="project1"
+        />
+
+        <figcaption id="popUp-des">Lorem ipsum dolor sit amet</figcaption>
+        <div class="tags">
+          <button class="tag-btn" id="tag1">Tag1</button>
+          <button class="tag-btn space" id="tag2">Tag1</button>
+          <button class="tag-btn space" id="tag3">Tag1</button>
+        </div>
+      </div>
+      <div class="close-btn">
+        <button class="close-btn-cls" onclick="toogle()">Close</button>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="experienceData.js"></script>
+    <script type="text/javascript" src="educationData.js"></script>
+    <script type="text/javascript" src="projectsData.js"></script>
+
+    <script type="text/javascript" src="../CRUD Folder/education.js"></script>
+    <script type="text/javascript" src="../CRUD Folder/experience.js"></script>
+
+    <script type="text/javascript" src="../projectPage/projects.js"></script>
+
+    <script type="text/javascript" src="userDetails.js"></script>
+    <script
+      type="text/javascript"
+      src="../AcademicData/academicData.js"
+    ></script>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>

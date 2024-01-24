@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Projects</title>
+  
+    <link rel="stylesheet" href="../../../Main Page/style.css">
+    <script
+      src="https://kit.fontawesome.com/f064934a3a.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      html{
+        scroll-behavior: smooth;
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="protfolio">Brand</a>
+        <div class="menu">
+          <div class="btn">
+            <i class="fas fa-times close-btn"></i>
+          </div>
+          <a href="../AdminPage/index.html">Home</a>
+          
+          
+          <a href="#contact">Contact</a>
+          <a href="../../UserPage/signIn.html">Log Out</a>
+          
+        </div>
+        <div class="btn">
+          <i class="fas fa-bars menu-btn"></i>
+        </div>
+      </header>
+
+      <!----------------Projects Section             -------------------------->
+      <main id="parent"> 
+      <article class="project-section" id="project-section">
+        <h1 class="projects" style="font-size: 3rem;">Projects</h1>
+        <div class="line2" style="margin-top: 1vh; border: 0.15rem solid #039be5;
+        width: 30%;"></div>
+
+        <div class="project-Search">
+          <input
+            type="text"
+            placeholder="Search Project using Title"
+            id="proj-search-bar"
+          />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div id="proj-parent">
+          <!-------Grand Parent--------->
+          <!-------------- This is the parent div   ------------------->
+
+          <div class="no-proj-div" id="no-proj-cont">
+            <h2 class="no-project" id="no-proj-text">
+              No Project to Display
+            </h2>
+          </div>
+        </div>
+
+      </article>
+
+      <!--------------Education section ------------------------>
+
+      <section class="education-section" id="edu-section">
+        <div class="education-heading">
+          <h2>Your Education</h2>
+          <div class="exp-line"></div>
+
+          <div
+            class="card-container"
+            style="
+              position: relative;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            "
+            id="edu-card"
+          >
+            <div
+              class="no-proj-div"
+              id="no-edu-cont"
+              style="display: block; margin-bottom: 30vh; margin-top: 10vh"
+            >
+              <h2
+                class="no-project"
+                id="no-edu-text"
+                style="
+                  display: block;
+                  position: relative;
+                  left: 3%;
+                  font-size: 2.5rem;
+                  font-weight: bold;
+                  font-style: italic;
+                  color: #5e9ebe;
+                "
+              >
+                No Education to Display
+              </h2>
+            </div>
+          </div>
+
+         
+        </div>
+      </section>
+
+
+      <!---------------------Experience Section ------------------------->
+
+      <section class="experience-section" id="exp-section">
+        <div class="experience-heading">
+          <h2>Your Experience</h2>
+
+          <div class="exp-line"></div>
+
+          <div class="project-Search" style="margin-top: 0.2vh">
+            <input
+              type="text"
+              placeholder="Search Experience By Role"
+              id="exp-search-bar"
+              style="width: 50%"
+            />
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
+
+        <div class="card-container" id="card-cont"></div>
+
+        <div class="no-proj-div" id="no-exp-cont">
+          <h2 class="no-project" id="no-exp-text">
+            No Experience to Display
+          </h2>
+        </div>
+        
+      </section>
+
+
+    </main>
+
+<!------------------------Footer Section--------------------------->
+      <footer class="footer" style="margin-top: 60vh;" id="contact">
+        <i id="icon" class="fa-solid fa-chevron-up"></i>
+        <div class="socialIcons">
+          <i class="fa-brands fa-twitter"></i>
+          <i class="fa-brands fa-linkedin" id="linkedIn-page"></i>
+          <i class="fa-brands fa-github" id="gitHub-page"></i>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="template">
+          <i class="fa-regular fa-copyright"></i>
+          <h4>2021</h4>
+          <p>This template is designed by Ameer Hamza</p>
+        </div>
+        <div class="template-buttons">
+          <button class="fork">
+            <i class="fa-solid fa-code-fork"></i>
+
+            <h5>20,2514</h5>
+          </button>
+
+          <button class="fork">
+            <i class="fa-regular fa-star"></i>
+
+            <h5>35,2514</h5>
+          </button>
+        </div>
+   </footer>
+
+   <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
