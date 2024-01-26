@@ -5,54 +5,69 @@ const appError = require("../error");
 const validator = require("validator");
 
 const Education = require("../Models/eduModel");
-const Experience = require("../Models/expModel");
+
 //creating a schema for users
-const userSchema = new mongoose.Schema({
-  name: { required: [true, "Name is required"], type: String },
-  email: {
-    validate: [validator.isEmail, "Enter a valid email"],
-    required: [true, "Email is required"],
-    unique: [true, "Email takken"],
-    type: String,
-  },
-  password: {
-    minlength: [8, "Min-length of password is 8"],
-    required: [true, "password is required"],
-    type: String,
-  },
-  phone: {
-    required: [true, "Phone is required"],
-    unique: [true, "Phone already exist"],
-    type: Number,
-  },
-  cnic: {
-    required: [true, "CNIC is required"],
-    unique: [true, "CNIC already exists"],
-    type: String,
-  },
-
-  designation: { type: String },
-
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-
-  //embadding the education document
-  education: [Education],
-  active: { type: Boolean, default: true },
-  //adding the experience ID for child refrencing
-  experience: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Experience",
+const userSchema = new mongoose.Schema(
+  {
+    name: { required: [true, "Name is required"], type: String },
+    email: {
+      validate: [validator.isEmail, "Enter a valid email"],
+      required: [true, "Email is required"],
+      unique: [true, "Email takken"],
+      type: String,
     },
-  ],
+    password: {
+      minlength: [8, "Min-length of password is 8"],
+      required: [true, "password is required"],
+      type: String,
+    },
+    phone: {
+      required: [true, "Phone is required"],
+      unique: [true, "Phone already exist"],
+      type: Number,
+    },
+    cnic: {
+      required: [true, "CNIC is required"],
+      unique: [true, "CNIC already exists"],
+      type: String,
+    },
 
-  passwordChangeAt: Date,
-  passwordRestToken: String,
-  passwordRestDuration: Date,
+    designation: { type: String },
+
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+
+    //embadding the education document
+    education: [Education],
+    active: { type: Boolean, default: true },
+    //adding the experience ID for child refrencing
+    experience: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Experience",
+        justOne: false,
+      },
+    ],
+
+    passwordChangeAt: Date,
+    passwordRestToken: String,
+    passwordRestDuration: Date,
+  },
+  //enabling the virtualization
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+//virtually populate the projects of user
+userSchema.virtual("projects", {
+  ref: "Projects",
+  foreignField: "user",
+  localField: "_id",
 });
 
 //bycrupt the password

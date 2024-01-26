@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const eduSchema = new mongoose.Schema({
   title: {
     type: String,
-    unique: [true, "This education exists"],
+
     required: [true, "Provide Title for Your education"],
   },
   completionYear: {

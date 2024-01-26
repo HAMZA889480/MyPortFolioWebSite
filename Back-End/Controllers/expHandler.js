@@ -12,7 +12,7 @@ exports.addExprience = async (req, res, next) => {
   }
 
   //adding the experience id to user
-  req.user.experience = addedExp._id;
+  req.user.experience.push(addedExp._id);
   try {
     await req.user.save();
   } catch (err) {
@@ -23,14 +23,14 @@ exports.addExprience = async (req, res, next) => {
 };
 
 //get experience of current user(logedIN user)
-exports.getExperience = async (req, res, next) => {
+exports.getMyExperience = async (req, res, next) => {
   //loged IN user is saved in req.user
 
   //finding the current user and polpulating the experience field
-  let userExp;
+  let currUserExp;
 
   try {
-    userExp = await Users.findById(req.user)
+    currUserExp = await Users.findById(req.user)
       .select("name email cnic -_id")
       .populate({
         path: "experience",
@@ -40,19 +40,42 @@ exports.getExperience = async (req, res, next) => {
     return next(new appError("Could not search for experience!!", 500));
   }
 
-  if (!userExp) {
+  if (!currUserExp) {
     return next(new appError("User or experience not found", 404));
   }
 
-  res.status(200).json({ message: "Found", userExp });
+  res
+    .status(200)
+    .json({
+      message: "Found",
+      count: currUserExp.experience.length,
+      currUserExp,
+    });
 };
 
-//update experience of curren user(logedIn user)
-exports.updateExperience = async (req, res, next) => {
-  //check if body is empty or not
-  if (!req.body) {
-    return next(new appError("Provide details that you want to updated!", 400));
+//get the experience of specifci user by (admin)
+exports.getUserExperience = async (req, res, next) => {
+  if (!req.body.email) {
+    return next(new appError("Provide the email of user", 400));
   }
 
-  //find user
+  let userExp;
+  try {
+    userExp = await Users.findOne({ email: req.body.email })
+      .select("name email cnic -_id")
+      .populate({
+        path: "experience",
+        select: "-_id -__v",
+      });
+  } catch (err) {
+    return next(new appError("Could NOT search for experience!", 500));
+  }
+
+  //if no user found
+  if (!userExp) {
+    return next(new appError("User NOT found. Invalide email", 500));
+  }
+  res
+    .status(200)
+    .json({ message: "Found", count: userExp.experience.length, userExp });
 };

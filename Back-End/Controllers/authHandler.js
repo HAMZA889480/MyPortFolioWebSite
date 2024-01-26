@@ -100,7 +100,7 @@ exports.verifyUserLogedIn = async (req, res, next) => {
 
   //verify that the token is not expired
   if (Date.now() > decoded.exp) {
-    return next(new appError("Token is expired!!"));
+    return next(new appError("Token is expired!!", 401));
   }
 
   // 3)- User still present using the id form the decoded variable

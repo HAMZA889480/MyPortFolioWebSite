@@ -38,6 +38,7 @@ exports.createUser = async (req, res, next) => {
 exports.getAllUsers = async (req, res, next) => {
   try {
     const allUsers = await Users.find({});
+
     res
       .status(200)
       .json({ message: "Success", count: allUsers.length, data: allUsers });
@@ -134,10 +135,7 @@ exports.searchUser = async (req, res, next) => {
   let user;
 
   try {
-    user = await Users.findOne({ email: req.body.email }).populate({
-      path: "experience",
-      select: "-_id -__v",
-    });
+    user = await Users.findOne({ email: req.body.email });
   } catch (err) {
     return next(new appError(err.message, 500));
   }

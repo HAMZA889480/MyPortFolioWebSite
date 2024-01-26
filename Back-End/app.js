@@ -6,7 +6,7 @@ const globalerrorHandler = require("./Controllers/globalErrorHandler");
 const userRouter = require("./Routes/userRouter");
 const educationRouter = require("./Routes/eduRouter");
 const experienceRouter = require("./Routes/expRouter");
-
+const projectsRouter = require("./Routes/projRouter");
 const app = express();
 
 app.use(express.json());
@@ -20,6 +20,9 @@ app.use("/portfolio/v1/education", educationRouter);
 
 //adding the experience router as a middle-ware
 app.use("/portfolio/v1/experience", experienceRouter);
+//adding the project router as a middle-ware
+app.use("/portfolio/v1/projects", projectsRouter);
+
 //handling error for undefined handler
 app.use("*", (req, res, next) => {
   next(new appError(`Cannot find request for URL ${req.originalUrl}`, 400));
