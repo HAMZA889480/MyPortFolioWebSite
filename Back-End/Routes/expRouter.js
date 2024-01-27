@@ -12,6 +12,10 @@ router
   .get(authHandler.verifyUserLogedIn, expHandler.getMyExperience);
 
 router
+  .route("/:id")
+  .patch(authHandler.verifyUserLogedIn, expHandler.updateMyExperience)
+  .delete(authHandler.verifyUserLogedIn, expHandler.deleteMyExperience);
+router
   .route("/admin")
   .get(
     authHandler.verifyUserLogedIn,

@@ -30,7 +30,7 @@ exports.getMyProjects = async (req, res, next) => {
       .select("name email cnic")
       .populate({
         path: "projects",
-        select: "-__v -_id ",
+        select: "-__v",
       });
   } catch (err) {
     return next(new appError("Could NOT search for projects!!", 500));
@@ -43,6 +43,33 @@ exports.getMyProjects = async (req, res, next) => {
   res
     .status(200)
     .json({ message: "Found", count: myProjects.projects.length, myProjects });
+};
+
+//update the project using the ID
+exports.updateMyProject = (req, res, next) => {
+  //1)- Check if body is present
+  if (Object.keys(req.body).length === 0) {
+    return next(new appError("Provide details to update"));
+  }
+
+  //2)- Update the project
+};
+
+exports.deleteMyProject = async (req, res, next) => {
+  let deleteDoc;
+  try {
+    deleteDoc = await Projects.findByIdAndDelete(req.params.id);
+  } catch (err) {
+    console.log(err.message);
+    return next(new appError("Project is not deleted!!"));
+  }
+
+  //check if deleteDoc contains the deleted document
+  if (!deleteDoc) {
+    return next(new appError("Project NOT found"));
+  }
+
+  res.status(204).json({ message: "Deleted", data: null });
 };
 
 //get user Projects (by admin)

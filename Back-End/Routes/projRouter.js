@@ -11,6 +11,11 @@ router
   .get(authHandler.verifyUserLogedIn, projHandler.getMyProjects);
 
 router
+  .route("/:id")
+  .patch(authHandler.verifyUserLogedIn, projHandler.updateMyProject)
+  .delete(authHandler.verifyUserLogedIn, projHandler.deleteMyProject);
+
+router
   .route("/admin")
   .get(
     authHandler.verifyUserLogedIn,

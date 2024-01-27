@@ -111,18 +111,26 @@ exports.deleteMe = async (req, res, next) => {
 exports.getMe = async (req, res, next) => {
   // 1)- User is logined
   //logined Users are save in req.user
-  let findUser;
+  let findMe;
   try {
-    findUser = await Users.findById(req.user._id).populate("experience");
+    findMe = await Users.findById(req.user._id)
+      .populate({
+        path: "experience",
+        select: "-__v",
+      })
+      .populate({
+        path: "projects",
+        select: "-__v",
+      });
   } catch (err) {
     return next(new appError("Could Not search for user", 500));
   }
 
-  if (!findUser) {
-    res.status(404).json({ message: "Fail", data: findUser });
+  if (!findMe) {
+    return next(new appError("Could Find your data", 404));
   }
 
-  res.status(200).json({ message: "Found", userData: findUser });
+  res.status(200).json({ message: "Found", myData: findMe });
 };
 
 //search a  logined user using email(by admin)
