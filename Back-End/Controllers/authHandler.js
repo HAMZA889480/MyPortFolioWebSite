@@ -27,7 +27,9 @@ exports.login = async (req, res, next) => {
 
   //4)- Check if the user is deactivated or not
   if (!loginUser.active) {
-    return next(new appError("You are de-activated.", 401));
+    return next(
+      new appError("You are de-activated. Contact Admin for re-activation", 401)
+    );
   }
 
   //5)- Compare the passwords
@@ -301,4 +303,42 @@ exports.updatePassword = async (req, res, next) => {
   );
 
   res.status(200).json({ message: "Password Modified", token });
+};
+
+//change the user status to active(if it is deactivated)
+exports.activateUser = async (req, res, next) => {
+  //1)- Email is present in the body
+
+  if (!req.body.email) {
+    return next(new appError("Provide Email of the the user", 400));
+  }
+  //2)- Fetch document from DB using email
+
+  let userDoc;
+  try {
+    userDoc = await Users.findOne({ email: req.body.email });
+  } catch (err) {
+    return next(new appError("Could not search for the user", 500));
+  }
+
+  if (!userDoc) {
+    return next(new appError("User NOT found!!", 404));
+  }
+  //3)- Check the active status
+
+  console.log(userDoc.active);
+  if (userDoc.active) {
+    return next(new appError("User is already active", 400));
+  }
+  //4)- Change the status to active if it is deactivated
+
+  let userStatus;
+  try {
+    userDoc.active = true;
+    userStatus = await userDoc.save({ runValidators: true, new: true });
+  } catch (err) {
+    return next(new appError("Could not update the status", 500));
+  }
+
+  res.status(200).json({ message: "User Activated", userStatus });
 };

@@ -156,7 +156,7 @@ exports.searchUser = async (req, res, next) => {
 };
 
 //delete a user using email ID (by admin)
-exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res, next) => {
   //1) Check if email is present
   if (!req.body.email) {
     return next(new appError("Provide the email of the user to Search"));

@@ -21,6 +21,12 @@ router
     "/updatePassword",
     authHandler.verifyUserLogedIn,
     authHandler.updatePassword
+  )
+  .patch(
+    "/updateStatus",
+    authHandler.verifyUserLogedIn,
+    authHandler.restrictTo("admin"),
+    authHandler.activateUser
   );
 
 //user Routes (allowed to admin user)
