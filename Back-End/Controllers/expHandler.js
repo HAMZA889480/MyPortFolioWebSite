@@ -1,10 +1,14 @@
+const mongoose = require("mongoose");
 const Experience = require("../Models/expModel");
 const appError = require("../error");
 const Users = require("../Models/userModel");
 //adding the Exprience
+
 exports.addExprience = async (req, res, next) => {
   let addedExp;
   try {
+    //appending user ID with the req.body
+    req.body.user = req.user._id;
     addedExp = await Experience.create(req.body);
   } catch (err) {
     console.log(err.message);

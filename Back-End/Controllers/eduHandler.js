@@ -36,7 +36,7 @@ exports.addEducation = async (req, res, next) => {
       return next(new appError("Degree Already exists", 400));
     }
 
-    //Degree not found
+    //Degree not found. Now create a new education
     user = await Users.findByIdAndUpdate(
       req.user._id,
       {
