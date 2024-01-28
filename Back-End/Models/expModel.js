@@ -23,6 +23,8 @@ const expSchema = new mongoose.Schema({
   },
 });
 
+//adding compound Index on originization and position
+//NO user can enter  same position in same originization twice
 expSchema.index({ orginization: 1, position: 1 }, { unique: true });
 
 //creating the model of the experience schema
