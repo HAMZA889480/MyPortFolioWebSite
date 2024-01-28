@@ -24,6 +24,11 @@ const projSchema = new mongoose.Schema({
   },
 });
 
+//adding compound indexes for unqiue title and user (user id)
+//NO user can add two project with same title
+
+projSchema.index({ title: 1, user: 1 }, { unique: true });
+
 //Creating model form schmea
 const Projects = mongoose.model("Projects", projSchema);
 

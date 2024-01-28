@@ -16,7 +16,11 @@ exports.addProject = async (req, res, next) => {
   try {
     newProject = await Projects.create(req.body);
   } catch (err) {
-    return next(new appError(err.message, 500));
+    if (err.message.includes("duplicate key error collection")) {
+      return next(new appError("Project already exists with same title", 500));
+    } else {
+      return next(new appError("Project NOT aaded", 500));
+    }
   }
 
   res.status(201).json({ message: "Project Added", newProject });

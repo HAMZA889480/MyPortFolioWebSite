@@ -23,6 +23,8 @@ const expSchema = new mongoose.Schema({
   },
 });
 
+expSchema.index({ orginization: 1, position: 1 }, { unique: true });
+
 //creating the model of the experience schema
 const Experience = mongoose.model("Experience", expSchema);
 

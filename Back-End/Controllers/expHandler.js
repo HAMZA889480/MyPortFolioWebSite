@@ -8,7 +8,13 @@ exports.addExprience = async (req, res, next) => {
     addedExp = await Experience.create(req.body);
   } catch (err) {
     console.log(err.message);
-    return next(new appError("Experience Not added!", 500));
+
+    //checking for duplicate error
+    if (err.message.includes("duplicate key error collection")) {
+      return next(new appError("Exp already exists", 400));
+    } else {
+      return next(new appError("Experience Not added!", 500));
+    }
   }
 
   //adding the experience id to user

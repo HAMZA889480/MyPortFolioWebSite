@@ -13,10 +13,11 @@ const eduSchema = new mongoose.Schema({
   },
   group: { type: String, required: [true, "Provide your Group"] },
   board: { type: String, required: [true, "Provide your Board Name"] },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "Users",
+  },
 });
-
-//create model from this schema
-//const eduModel = new mongoose.model("Education", eduSchema);
 
 //export the EduModel
 module.exports = eduSchema;

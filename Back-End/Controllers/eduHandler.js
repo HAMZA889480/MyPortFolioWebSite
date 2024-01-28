@@ -152,12 +152,11 @@ exports.removeEducation = async (req, res, next) => {
       //title match.
       //remove the current education which is present at position index in userDoc.education array
       //we use splice method
-      
+
       userDoc.education.splice(index, 1);
-      
-     
+
       try {
-        eduModified =  userDoc.save({
+        eduModified = userDoc.save({
           validateBeforeSave: true,
           new: true,
         });
@@ -168,5 +167,5 @@ exports.removeEducation = async (req, res, next) => {
     index++;
   });
 
-  res.status(200).json({ message: "Degree removed",data:await eduModified });
+  res.status(200).json({ message: "Degree removed", data: await eduModified });
 };
