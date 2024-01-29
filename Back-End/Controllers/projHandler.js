@@ -50,13 +50,30 @@ exports.getMyProjects = async (req, res, next) => {
 };
 
 //update the project using the ID
-exports.updateMyProject = (req, res, next) => {
-  //1)- Check if body is present
+exports.updateMyProject = async (req, res, next) => {
+  //2)- Check if body is given
+
   if (Object.keys(req.body).length === 0) {
-    return next(new appError("Provide details to update"));
+    //get all keys in the req.body object(if any)
+    return next(new appError("Body is empty", 400));
+  }
+  //3)- update the project using the id passed in parameter
+  let updateProj;
+  try {
+    updateProj = await Projects.findByIdAndUpdate(req.params.id, req.body, {
+      runValidators: true,
+      new: true,
+    });
+  } catch (err) {
+    console.log(err.message);
+    if (err.message.includes("Plan executor error during findAndModify")) {
+      return next(new appError("Project already exists", 400));
+    } else {
+      return next(new appError("Error in updating the project", 400));
+    }
   }
 
-  //2)- Update the project
+  res.status(200).json({ message: "Updated", updateProj });
 };
 
 exports.deleteMyProject = async (req, res, next) => {

@@ -76,8 +76,13 @@ exports.updateMyExperience = async (req, res, next) => {
       runValidators: true,
       new: true,
     });
-  } catch {
-    return next(new appError("Error in updating the experience", 400));
+  } catch (err) {
+    console.log(err.message);
+    if (err.message.includes("Plan executor error during findAndModify")) {
+      return next(new appError("Experience already exists", 400));
+    } else {
+      return next(new appError("Error in updating the experience", 400));
+    }
   }
 
   res.status(200).json({ message: "Updated", updateExp });
