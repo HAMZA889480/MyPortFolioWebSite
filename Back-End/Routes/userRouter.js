@@ -50,7 +50,12 @@ router
 
 //user Routers (allowed to normal user)
 router
-  .patch("/updateMe", authHandler.verifyUserLogedIn, userHandlers.updateMe)
+  .patch(
+    "/updateMe",
+    authHandler.verifyUserLogedIn,
+    userHandlers.uploadImage,
+    userHandlers.updateMe
+  )
   .delete("/deleteMe", authHandler.verifyUserLogedIn, userHandlers.deleteMe)
   .get("/getMe", authHandler.verifyUserLogedIn, userHandlers.getMe);
 

@@ -1,5 +1,6 @@
 const Users = require("../Models/userModel");
 const appError = require("../error");
+const multer = require("multer");
 
 //method for filering the body.
 //This method is called by updateMe Hnadler
@@ -19,6 +20,38 @@ function filterBody(body, ...filerArray) {
 
   return newFileredArray;
 }
+
+//configure the multer for user images
+//1)- Specify the storage
+const multerStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images/user");
+  },
+  filename: (req, file, cb) => {
+    const ext = file.mimetype.split("/")[1];
+
+    cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
+  },
+});
+
+//adding file type filter
+//2)- Only images are uploaded
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.split("/")[0] == "image") {
+    cb(null, true);
+  } else {
+    //not  an image
+    cb(new appError("File type is not an image. Select an image", 400));
+  }
+};
+
+const upload = multer({
+  storage: multerStorage,
+  fileFilter: multerFilter,
+});
+
+//middle-ware for image uploading
+exports.uploadImage = upload.single("photo");
 
 //creating  a user
 exports.createUser = async (req, res, next) => {
@@ -66,6 +99,15 @@ exports.updateMe = async (req, res, next) => {
   //Filter out the fileds that are allowed to update by a user from body
 
   let fileredUpdates = filterBody(req.body, "name", "email", "phone");
+
+  //checking if image is uploaded.
+  //In this case, file is present in the body
+  if (req.file) {
+    //adding a field named as image field in the filteredUpdate object
+    //and assigning the fileName
+
+    fileredUpdates.image = req.file.filename;
+  }
 
   //use findByIdAndUpdate, and not update and save because in the latter approach
   //the save method of mongoose will run and check for passwords. But we do not

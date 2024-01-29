@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
     },
 
     designation: { type: String },
+    image: { type: String },
 
     role: {
       type: String,
