@@ -28,7 +28,7 @@ const upload = multer({
 exports.uploadProjImg = upload.single("photo");
 
 //handler for resizing the image
-exports.resizeProjImg = (req, res, next) => {
+exports.resizeProjImg = async (req, res, next) => {
   if (req.file) {
     //make the directory ifit does not exists
     const directory = "public/images/projects";
@@ -38,7 +38,7 @@ exports.resizeProjImg = (req, res, next) => {
     }
     req.file.filename = `projects-${req.user._id}-${Date.now()}.jpeg`;
     //apply the resize
-    sharp(req.file.buffer)
+    await sharp(req.file.buffer)
       .resize(
         parseInt(process.env.PROJECT_IMAGE_WIDTH), //passing the values for height and width from config file
         parseInt(process.env.PROJECT_IMAGE_HEIGHT)

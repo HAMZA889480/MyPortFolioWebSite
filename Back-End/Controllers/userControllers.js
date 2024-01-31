@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const Users = require("../Models/userModel");
 const appError = require("../error");
 const multer = require("multer");
@@ -56,24 +58,28 @@ const upload = multer({
 exports.uploadImage = upload.single("photo");
 
 //middle-ware to reszie the image
-exports.imageResize = (req, res, next) => {
-  if (!req.file) {
+exports.imageResize = async (req, res, next) => {
+  if (req.file) {
+    const directory = "public/images/users";
+
+    if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory, { recursive: true });
+    }
+
+    //setting up the file name
+    req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
+    //applying the resize using the sharp package
+    await sharp(req.file.buffer)
+      .resize(
+        parseInt(process.env.USER_IMAGE_WIDTH),
+        parseInt(process.env.USER_IMAGE_HEIGHT)
+      ) //resizing
+      .toFormat("jpeg") //convert it to jpeg format
+      .jpeg({ quality: 80 }) //cpmressing the image quality
+      .toFile(`${directory}/${req.file.filename}`); //saving file to specific path
+
     next();
   }
-
-  //setting up the file name
-  req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
-  //applying the resize using the sharp package
-  sharp(req.file.buffer)
-    .resize(
-      parseInt(process.env.USER_IMAGE_WIDTH),
-      parseInt(process.env.USER_IMAGE_HEIGHT)
-    ) //resizing
-    .toFormat("jpeg") //convert it to jpeg format
-    .jpeg({ quality: 80 }) //cpmressing the image quality
-    .toFile(`public/images/user/${req.file.filename}`); //saving file to specific path
-
-  next();
 };
 //creating  a user
 exports.createUser = async (req, res, next) => {
@@ -105,6 +111,11 @@ exports.getAllUsers = async (req, res, next) => {
 
 //update Current User
 exports.updateMe = async (req, res, next) => {
+  //check if data is passed for update. Either body or file
+  if (Object.keys(req.body) === 0 && !req.file) {
+    return next(new appError("Body is empty!!", 400));
+  }
+
   //user is logned in.
   //So, we have user saved in req.user(done in the verifyLOgedInUser Handler)
 
