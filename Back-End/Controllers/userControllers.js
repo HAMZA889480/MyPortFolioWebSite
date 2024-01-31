@@ -1,6 +1,7 @@
 const Users = require("../Models/userModel");
 const appError = require("../error");
 const multer = require("multer");
+const sharp = require("sharp");
 
 //method for filering the body.
 //This method is called by updateMe Hnadler
@@ -23,17 +24,18 @@ function filterBody(body, ...filerArray) {
 
 //configure the multer for user images
 //1)- Specify the storage
-const multerStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/images/user");
-  },
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split("/")[1];
+// const multerStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "public/images/user");
+//   },
+//   filename: (req, file, cb) => {
+//     const ext = file.mimetype.split("/")[1];
 
-    cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
-  },
-});
+//     cb(null, `user-${req.user._id}-${Date.now()}.${ext}`);
+//   },
+// });
 
+const multerStorage = multer.memoryStorage();
 //adding file type filter
 //2)- Only images are uploaded
 const multerFilter = (req, file, cb) => {
@@ -53,6 +55,26 @@ const upload = multer({
 //middle-ware for image uploading
 exports.uploadImage = upload.single("photo");
 
+//middle-ware to reszie the image
+exports.imageResize = (req, res, next) => {
+  if (!req.file) {
+    next();
+  }
+
+  //setting up the file name
+  req.file.filename = `user-${req.user._id}-${Date.now()}.jpeg`;
+  //applying the resize using the sharp package
+  sharp(req.file.buffer)
+    .resize(
+      parseInt(process.env.USER_IMAGE_WIDTH),
+      parseInt(process.env.USER_IMAGE_HEIGHT)
+    ) //resizing
+    .toFormat("jpeg") //convert it to jpeg format
+    .jpeg({ quality: 80 }) //cpmressing the image quality
+    .toFile(`public/images/user/${req.file.filename}`); //saving file to specific path
+
+  next();
+};
 //creating  a user
 exports.createUser = async (req, res, next) => {
   try {

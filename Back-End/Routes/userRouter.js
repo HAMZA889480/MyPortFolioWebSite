@@ -54,6 +54,7 @@ router
     "/updateMe",
     authHandler.verifyUserLogedIn,
     userHandlers.uploadImage,
+    userHandlers.imageResize,
     userHandlers.updateMe
   )
   .delete("/deleteMe", authHandler.verifyUserLogedIn, userHandlers.deleteMe)

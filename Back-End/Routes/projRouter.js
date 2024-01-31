@@ -12,7 +12,12 @@ router
 
 router
   .route("/:id")
-  .patch(authHandler.verifyUserLogedIn, projHandler.updateMyProject)
+  .patch(
+    authHandler.verifyUserLogedIn,
+    projHandler.uploadProjImg,
+    projHandler.resizeProjImg,
+    projHandler.updateMyProject
+  )
   .delete(authHandler.verifyUserLogedIn, projHandler.deleteMyProject);
 
 router

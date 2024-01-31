@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
     },
 
     designation: { type: String },
-    image: { type: String },
+    image: { type: String, default: "default.jpeg" },
 
     role: {
       type: String,

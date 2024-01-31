@@ -10,6 +10,7 @@ const projectsRouter = require("./Routes/projRouter");
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 //adding user routers as a middle-ware
@@ -25,7 +26,9 @@ app.use("/portfolio/v1/projects", projectsRouter);
 
 //handling error for undefined handler
 app.use("*", (req, res, next) => {
-  next(new appError(`Cannot find request for URL ${req.originalUrl}`, 400));
+  return next(
+    new appError(`Cannot find request for URL ${req.originalUrl}`, 400)
+  );
 });
 
 //error handling middle-warew

@@ -1,6 +1,54 @@
+const sharp = require("sharp");
 const appError = require("../error");
 const Projects = require("../Models/projects");
 const Users = require("../Models/userModel");
+const multer = require("multer");
+const fs = require("fs");
+
+//configuration for multer
+//1) settign up the storage
+const imageStorage = multer.memoryStorage();
+
+//2) filtering the file type for image only
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.split("/")[0] == "image") {
+    cb(null, true);
+  } else {
+    cb(new appError("You select wrong file. Select an image to upload", 400));
+  }
+};
+
+//setting up the multer
+const upload = multer({
+  storage: imageStorage,
+  fileFilter: multerFilter,
+});
+
+//adding handler for uploading the file
+exports.uploadProjImg = upload.single("photo");
+
+//handler for resizing the image
+exports.resizeProjImg = (req, res, next) => {
+  if (req.file) {
+    //make the directory ifit does not exists
+    const directory = "public/images/projects";
+
+    if (!fs.existsSync(directory)) {
+      fs.mkdirSync(directory, { recursive: true });
+    }
+    req.file.filename = `projects-${req.user._id}-${Date.now()}.jpeg`;
+    //apply the resize
+    sharp(req.file.buffer)
+      .resize(
+        parseInt(process.env.PROJECT_IMAGE_WIDTH), //passing the values for height and width from config file
+        parseInt(process.env.PROJECT_IMAGE_HEIGHT)
+      )
+      .toFormat("jpeg")
+      .toFile(`${directory}/${req.file.filename}`);
+  }
+
+  next();
+};
 
 //adding the projects
 exports.addProject = async (req, res, next) => {
@@ -49,31 +97,40 @@ exports.getMyProjects = async (req, res, next) => {
     .json({ message: "Found", count: myProjects.projects.length, myProjects });
 };
 
-//update the project using the ID
+//update the project using the IDclea
 exports.updateMyProject = async (req, res, next) => {
+  //console.log(req.body);
+
   //2)- Check if body is given
 
-  if (Object.keys(req.body).length === 0) {
+  if (Object.keys(req.body).length === 0 && !req.file) {
     //get all keys in the req.body object(if any)
     return next(new appError("Body is empty", 400));
   }
-  //3)- update the project using the id passed in parameter
+  //3)- adding the image file name(if selected by user) to the req.body
+
+  if (req.file) {
+    req.body.images = req.file.filename;
+  }
+
+  //4)- update the project using the id passed in parameter
+
   let updateProj;
+
   try {
     updateProj = await Projects.findByIdAndUpdate(req.params.id, req.body, {
       runValidators: true,
       new: true,
     });
   } catch (err) {
-    console.log(err.message);
     if (err.message.includes("Plan executor error during findAndModify")) {
       return next(new appError("Project already exists", 400));
-    } else {
-      return next(new appError("Error in updating the project", 400));
     }
+    console.log(err.message);
+    return next(new appError("Error in updating the project", 400));
   }
 
-  res.status(200).json({ message: "Updated", updateProj });
+  res.status(200).json({ message: "updated", updateProj });
 };
 
 exports.deleteMyProject = async (req, res, next) => {
