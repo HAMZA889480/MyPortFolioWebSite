@@ -8,11 +8,7 @@ const Router = express.Router();
 Router.route("/")
   .post(authHandler.verifyUserLogedIn, eduHandler.addEducation)
   .get(authHandler.verifyUserLogedIn, eduHandler.getAllEducation)
-  .patch(
-    authHandler.verifyUserLogedIn,
-    authHandler.restrictTo("admin"),
-    eduHandler.updateEducation
-  )
+
   .delete(
     authHandler.verifyUserLogedIn,
     authHandler.restrictTo("admin"),
@@ -22,5 +18,11 @@ Router.route("/")
 Router.route("/:title").get(
   authHandler.verifyUserLogedIn,
   eduHandler.findEducation
+);
+
+Router.route("/:email/:title").patch(
+  authHandler.verifyUserLogedIn,
+  authHandler.restrictTo("admin"),
+  eduHandler.updateEducation
 );
 module.exports = Router;

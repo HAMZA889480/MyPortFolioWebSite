@@ -97,20 +97,22 @@ exports.findEducation = async (req, res, next) => {
 
 //update specific eduaction (done by admin)
 exports.updateEducation = async (req, res, next) => {
-  // 1)- Check that email and title are present in query
-  if (!req.query.email || !req.query.title) {
-    return next(new appError("email or Title of degree is missing", 400));
-  }
-
   // 2)- Fetch the user document using email and check if document exist
-  const user = await findUserDocument("email", req.query.email);
+  const user = await findUserDocument("email", req.params.email);
 
   if (!user) {
     return next(new appError("User does not exist with this email", 404));
   }
 
-  user.education.forEach((element, index) => {
-    if (element.title == req.query.title) {
+  // 3)- Update the education details
+  //check if education is not empty
+  if (user.education.length == 0) {
+    return next(new appError("No education record found", 404));
+  }
+  //we have to find the education with title and update it
+  let modifiedUser;
+  user.education.forEach(async (element, index) => {
+    if (element.title == req.params.title) {
       //index contains the position in education array where to change the details
 
       const updatedObj = { ...element, ...req.body };
@@ -124,7 +126,9 @@ exports.updateEducation = async (req, res, next) => {
     }
     index;
   });
-
+  if (!modifiedUser) {
+    return next(new appError("Education is not modified"));
+  }
   res.status(200).json({ message: "updated", updatedUser: await modifiedUser });
 };
 
