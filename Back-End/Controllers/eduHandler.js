@@ -95,81 +95,72 @@ exports.findEducation = async (req, res, next) => {
   res.status(200).json({ message: "Found", searchEdu });
 };
 
-//update specific eduaction (done by admin)
+//update specific eduaction
 exports.updateEducation = async (req, res, next) => {
-  // 2)- Fetch the user document using email and check if document exist
-  const user = await findUserDocument("email", req.params.email);
+  let modifiedEdu;
 
-  if (!user) {
-    return next(new appError("User does not exist with this email", 404));
-  }
-
-  // 3)- Update the education details
-  //check if education is not empty
-  if (user.education.length == 0) {
-    return next(new appError("No education record found", 404));
-  }
-  //we have to find the education with title and update it
-  let modifiedUser;
-  user.education.forEach(async (element, index) => {
-    if (element.title == req.params.title) {
-      //index contains the position in education array where to change the details
-
-      const updatedObj = { ...element, ...req.body };
-      Object.assign(user.education[index], updatedObj);
-      try {
-        modifiedUser = user.save();
-      } catch (err) {
-        console.log(err.message);
-        return next(new appError("Education is not modified"));
+  //modify the education using the id of the education document
+  try {
+    modifiedEdu = await Users.findOneAndUpdate(
+      {
+        _id: req.user._id,
+        "education._id": req.params.id,
+      },
+      {
+        $set: {
+          "education.$.title": req.body.title,
+          "education.$.institute": req.body.institute,
+          "education.$.completionYear": req.body.completionYear,
+          "education.$.group": req.body.group,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
       }
+    );
+  } catch (err) {
+    if (err.message.includes("Cast to ObjectId failed")) {
+      //if the id is not found
+      return next(new appError("Education not found", 500));
     }
-    index;
-  });
-  if (!modifiedUser) {
+    return next(new appError("Error in updating the education", 500));
+  }
+
+  if (!modifiedEdu) {
     return next(new appError("Education is not modified"));
   }
-  res.status(200).json({ message: "updated", updatedUser: await modifiedUser });
+  res.status(200).json({ message: "updated", updatedUser: modifiedEdu });
 };
 
-//remove education (done by admin)
+//remove education of current user
 exports.removeEducation = async (req, res, next) => {
-  //1)- Logined User is admin or not
-
-  //2)- email and title provided or not
-  if (!req.body.email || !req.body.title) {
-    return next(
-      new appError("Provide email of user and title of degree to delete!")
-    );
-  }
-
-  // 3)- get the user document by calling the function
-  const userDoc = await findUserDocument("email", req.body.email);
-
-  if (!userDoc) {
-    return next(new appError("User not found!!", 404));
-  }
-
   let eduModified;
-  userDoc.education.forEach(async (eachEdu, index) => {
-    if (eachEdu.title == req.body.title) {
-      //title match.
-      //remove the current education which is present at position index in userDoc.education array
-      //we use splice method
-
-      userDoc.education.splice(index, 1);
-
-      try {
-        eduModified = userDoc.save({
-          validateBeforeSave: true,
-          new: true,
-        });
-      } catch (err) {
-        return next(new appError("Degree is NOT removed!", 500));
+  //remove the education using the id of the education document
+  try {
+    eduModified = await Users.findOneAndUpdate(
+      {
+        _id: req.user._id,
+      },
+      {
+        $pull: { education: { _id: req.params.id } },
+      },
+      {
+        new: true,
+        runValidators: true,
       }
+    );
+  } catch (err) {
+    if (err.message.includes("Cast to ObjectId failed")) {
+      //if the id is not found
+      return next(new appError("Education not found", 500));
     }
-    index++;
-  });
+    return next(new appError("Error in removing the education", 500));
+  }
+
+  if (!eduModified) {
+    return next(new appError("Education is not removed"));
+  }
 
   res.status(200).json({ message: "Degree removed", data: await eduModified });
 };

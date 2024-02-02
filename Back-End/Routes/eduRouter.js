@@ -7,22 +7,22 @@ const Router = express.Router();
 
 Router.route("/")
   .post(authHandler.verifyUserLogedIn, eduHandler.addEducation)
-  .get(authHandler.verifyUserLogedIn, eduHandler.getAllEducation)
-
-  .delete(
-    authHandler.verifyUserLogedIn,
-    authHandler.restrictTo("admin"),
-    eduHandler.removeEducation
-  );
+  .get(authHandler.verifyUserLogedIn, eduHandler.getAllEducation);
 
 Router.route("/:title").get(
   authHandler.verifyUserLogedIn,
   eduHandler.findEducation
 );
 
-Router.route("/:email/:title").patch(
-  authHandler.verifyUserLogedIn,
-  authHandler.restrictTo("admin"),
-  eduHandler.updateEducation
-);
+Router.route("/:id")
+  .patch(
+    authHandler.verifyUserLogedIn,
+
+    eduHandler.updateEducation
+  )
+  .delete(
+    authHandler.verifyUserLogedIn,
+
+    eduHandler.removeEducation
+  );
 module.exports = Router;
