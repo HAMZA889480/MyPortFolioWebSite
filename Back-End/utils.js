@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 
 //path to config-file
 dotenv.config({ path: "./config.env" });
-console.log(process.env.NODE_MAILER_PASS);
+
 // Create a transporter with promisified sendMail
 const transporter = nodemailer.createTransport({
   service: "gmail",

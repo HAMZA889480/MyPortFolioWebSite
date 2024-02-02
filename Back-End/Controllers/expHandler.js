@@ -94,7 +94,6 @@ exports.deleteMyExperience = async (req, res, next) => {
   try {
     deletedExp = await Experience.findByIdAndDelete(req.params.id);
   } catch (err) {
-    console.log(err.message);
     return next(new appError("Error in deleting the experience!!", 500));
   }
 
@@ -114,8 +113,6 @@ exports.deleteMyExperience = async (req, res, next) => {
   //II)- Find the exp ID in user doc and delted it
   userDoc.experience.forEach(async (eachExp, index = 0) => {
     if (eachExp == req.params.id) {
-      console.log("Found");
-
       //removing the experience from userDoc
       userDoc.experience.splice(index, 1);
 

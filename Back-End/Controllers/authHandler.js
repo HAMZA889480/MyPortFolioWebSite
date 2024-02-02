@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const utilities = require("../utils");
 const dotenv = require("dotenv");
-const { decode } = require("punycode");
 
 //settign up the path to config file
 dotenv.config({ path: "./config.env" });
@@ -52,19 +51,6 @@ exports.login = async (req, res, next) => {
     },
     process.env.SECREAT_KEY
   );
-
-  let decode = jwt.decode(token, { complete: true });
-
-  //console.log(decode);
-
-  const iatTimestamp = decode.payload.iat;
-  const expTimestamp = decode.payload.exp;
-
-  const iatDate = new Date(iatTimestamp);
-  const expDate = new Date(expTimestamp);
-
-  console.log("Issued At:", iatDate.toISOString());
-  console.log("Expiration Time:", expDate.toISOString());
 
   res
     .status(200)
@@ -326,7 +312,6 @@ exports.activateUser = async (req, res, next) => {
   }
   //3)- Check the active status
 
-  console.log(userDoc.active);
   if (userDoc.active) {
     return next(new appError("User is already active", 400));
   }
