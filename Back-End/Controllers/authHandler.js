@@ -54,7 +54,14 @@ exports.login = async (req, res, next) => {
 
   res
     .status(200)
-    .json({ status: "Loged In", message: "Successfully Logined In", token });
+    .json({ status: "Loged In", message: "Successfully Logined In" });
+
+  //seding the jwt as cookie
+  res.cookie("jwt", token, {
+    //setting the expiry time of the cookie
+    expires: new Date(Date.now() + parseInt(process.env.TOKEN_DURATION)),
+    httpOnly: true,
+  });
 };
 
 exports.verifyUserLogedIn = async (req, res, next) => {
