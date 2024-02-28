@@ -26,11 +26,6 @@ const userSchema = new mongoose.Schema(
       unique: [true, "Phone already exist"],
       type: Number,
     },
-    cnic: {
-      required: [true, "CNIC is required"],
-      unique: [true, "CNIC already exists"],
-      type: String,
-    },
 
     designation: { type: String },
     image: { type: String, default: "default.jpeg" },
