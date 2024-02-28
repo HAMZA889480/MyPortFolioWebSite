@@ -86,10 +86,25 @@ exports.createUser = async (req, res, next) => {
   try {
     const user = await Users.create(req.body);
     res.status(201).json({
+      status: 201,
       message: "Created",
       data: user,
     });
   } catch (err) {
+    if (
+      err.message.includes(
+        "E11000 duplicate key error collection: portfolio.users index: email_1 dup key:"
+      )
+    ) {
+      return next(new appError("Email already exist", 400));
+    } else if (
+      err.message.includes(
+        "E11000 duplicate key error collection: portfolio.users index: phone_1 dup key:"
+      )
+    ) {
+      return next(new appError("Phone already exist", 400));
+    }
+
     console.log(err.message);
     return next(new appError(err.message, 500));
   }

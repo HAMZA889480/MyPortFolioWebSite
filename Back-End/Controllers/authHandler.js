@@ -21,13 +21,13 @@ exports.login = async (req, res, next) => {
   if (!loginUser) {
     return res
       .status(401)
-      .json({ status: "Error", message: "Email or password not match" });
+      .json({ status: 401, message: "Email or password not match" });
   }
 
   //4)- Check if the user is deactivated or not
   if (!loginUser.active) {
     return next(
-      new appError("You are de-activated. Contact Admin for re-activation", 401)
+      new appError("You are de-activated. Contact Admin for re-activation", 403)
     );
   }
 
@@ -36,7 +36,7 @@ exports.login = async (req, res, next) => {
   if (!(await loginUser.matchPassword(req.body.password, loginUser.password))) {
     return res
       .status(401)
-      .json({ status: "Error", message: "Email or password not match" });
+      .json({ status: 401, message: "Email or password not match" });
   }
 
   //passwords are matched
@@ -52,16 +52,15 @@ exports.login = async (req, res, next) => {
     process.env.SECREAT_KEY
   );
 
-  res
-    .status(200)
-    .json({ status: "Loged In", message: "Successfully Logined In" });
-
-  //seding the jwt as cookie
+  // Set the cookie
   res.cookie("jwt", token, {
-    //setting the expiry time of the cookie
+    // Setting the expiry time of the cookie
     expires: new Date(Date.now() + parseInt(process.env.TOKEN_DURATION)),
     httpOnly: true,
   });
+
+  // Send the response
+  res.status(200).json({ status: 200, message: "Successfully Logged In" });
 };
 
 exports.verifyUserLogedIn = async (req, res, next) => {

@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const appError = require("./error");
+const cors = require("cors");
 const globalerrorHandler = require("./Controllers/globalErrorHandler");
 
 const userRouter = require("./Routes/userRouter");
@@ -8,6 +9,14 @@ const educationRouter = require("./Routes/eduRouter");
 const experienceRouter = require("./Routes/expRouter");
 const projectsRouter = require("./Routes/projRouter");
 const app = express();
+
+//setting up the cors
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

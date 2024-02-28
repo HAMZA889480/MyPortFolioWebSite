@@ -9,8 +9,8 @@ router
 
   .post(
     "/signup",
-    authHandler.verifyUserLogedIn,
-    authHandler.restrictTo("admin"),
+    // authHandler.verifyUserLogedIn,
+    // authHandler.restrictTo("admin"),
     userHandlers.createUser
   )
 

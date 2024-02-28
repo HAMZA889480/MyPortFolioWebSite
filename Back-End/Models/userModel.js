@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
     email: {
       validate: [validator.isEmail, "Enter a valid email"],
       required: [true, "Email is required"],
-      unique: [true, "Email takken"],
+      unique: [true, "User Exists with this email"],
       type: String,
     },
     password: {
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     phone: {
       required: [true, "Phone is required"],
       unique: [true, "Phone already exist"],
-      type: Number,
+      type: String,
     },
 
     designation: { type: String },
@@ -58,6 +58,9 @@ const userSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+//creating index on email and phone
+// Create indexes for unique fields
+userSchema.index({ email: 1, phone: 1 }, { unique: true });
 
 //virtually populate the projects of user
 userSchema.virtual("projects", {
