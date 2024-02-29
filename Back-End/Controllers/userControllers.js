@@ -4,6 +4,12 @@ const Users = require("../Models/userModel");
 const appError = require("../error");
 const multer = require("multer");
 const sharp = require("sharp");
+const dotenv = require("dotenv");
+
+const jwt = require("jsonwebtoken");
+
+//settign up the path to config file
+dotenv.config({ path: "./config.env" });
 
 //method for filering the body.
 //This method is called by updateMe Hnadler
@@ -85,6 +91,23 @@ exports.imageResize = async (req, res, next) => {
 exports.createUser = async (req, res, next) => {
   try {
     const user = await Users.create(req.body);
+
+    //creating jwt token for the user
+    const token = jwt.sign(
+      {
+        id: user._id,
+        iat: Date.now(),
+        exp: Date.now() + parseInt(process.env.TOKEN_DURATION),
+      },
+      process.env.SECREAT_KEY
+    );
+
+    res.cookie("jwt", token, {
+      // Setting the expiry time of the cookie
+      expires: new Date(Date.now() + parseInt(process.env.TOKEN_DURATION)),
+      httpOnly: true,
+    });
+
     res.status(201).json({
       status: 201,
       message: "Created",
